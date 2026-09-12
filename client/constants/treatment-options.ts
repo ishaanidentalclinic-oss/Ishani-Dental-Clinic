@@ -1,0 +1,20 @@
+/** Full treatment menu (for select inputs) — mirrors the services listed on the clinic's site. */
+export const TREATMENT_OPTIONS = [
+  "Dental Check-Up",
+  "Dental Implants",
+  "Laser Treatments",
+  "Teeth Whitening",
+  "Root Canal Treatment",
+  "Dental Fillings",
+  "Tooth Extractions",
+  "Surgical Tooth Extraction",
+  "Orthodontic Braces / Aligners",
+  "Complete Dentures",
+  "Crown & Bridges",
+  "Oral Precancer Screening",
+  "Cavity Sealants (Kids Only)",
+  "Teeth Cleaning / Professional Scaling",
+  "Gum Surgery with Bone Grafting",
+  "Gum Esthetic Surgery (Depigmentation)",
+  "Other",
+] as const;

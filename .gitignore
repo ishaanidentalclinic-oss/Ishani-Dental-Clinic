@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+client/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Credentials (NEVER COMMIT)
+.env
+.env*.local
+.env.production
+.env.development
+client/.env
+client/.env*.local
+*.local
+!*.example
+
+# Service Account Keys & Secrets
+*serviceaccount*.json
+*service-account*.json
+ishaani-dental-website-*.json
+*.pem
+*.key
+
+# Next.js Build Output & Cache
+.next/
+client/.next/
+out/
+client/out/
+build/
+
+# Uploaded Media (Local Fallback)
+client/public/uploads/*
+!client/public/uploads/.gitkeep
+
+# System & Editor Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/

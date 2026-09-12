@@ -1,0 +1,14 @@
+{
+  "name": "ishaani-dental-clinic",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ishaani Dental Clinic website & admin portal (Unified Next.js + MongoDB).",
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm run start --prefix client",
+    "lint": "npm run lint --prefix client",
+    "format": "npm run format --prefix client",
+    "seed:admin": "npm run seed:admin --prefix client"
+  }
+}

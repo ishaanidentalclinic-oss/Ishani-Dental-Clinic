@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+:root {
+  /* Brand teal — richer, deeper jewel-tone teal-green for primary actions, links, section accents */
+  --color-primary-50: #eaf7f1;
+  --color-primary-100: #cbebdd;
+  --color-primary-200: #9dd8c0;
+  --color-primary-300: #69bf9e;
+  --color-primary-400: #3d9f7c;
+  --color-primary-500: #237f62;
+  --color-primary-600: #196553;
+  --color-primary-700: #145043;
+  --color-primary-800: #103d34;
+  --color-primary-900: #0b2c26;
+  --color-primary-950: #061a16;
+
+  /* Sage — soft section backgrounds (Doctors, Testimonials) */
+  --color-sage-50: #eef4f1;
+  --color-sage-100: #e2ece7;
+
+  /* Ink — headings and high-contrast text */
+  --color-ink-900: #16232a;
+  --color-ink-700: #33454c;
+
+  /* Accents */
+  --color-whatsapp: #25d366;
+  --color-gold: #f5b400;
+
+  --shadow-card-color: 11 44 38;
+  --shadow-float-color: 11 44 38;
+}
+
+@theme inline {
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+  --color-primary-950: var(--color-primary-950);
+
+  --color-sage-50: var(--color-sage-50);
+  --color-sage-100: var(--color-sage-100);
+
+  --color-ink-900: var(--color-ink-900);
+  --color-ink-700: var(--color-ink-700);
+
+  --color-whatsapp: var(--color-whatsapp);
+  --color-gold: var(--color-gold);
+
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 4px 24px rgb(var(--shadow-card-color) / 0.06);
+  --shadow-float: 0 12px 40px rgb(var(--shadow-float-color) / 0.16);
+
+  --container-page: 80rem;
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  color: var(--color-ink-900);
+  background: #ffffff;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.01em;
+  }
+}
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  50% {
+    transform: scale(1.04) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+/*
+ * Ken Burns for the homepage hero. transform-origin is pinned to the subject's
+ * own position (matched to its object-position), so the anchor point stays
+ * visually fixed as the image scales — the subject never drifts. The pan only
+ * moves right (deeper into the subject's own negative space), never left
+ * toward the hero text, so it stays additive to that guarantee rather than
+ * undoing it.
+ */
+@keyframes kenburns-hero {
+  0% {
+    transform: scale(1) translateX(0%);
+  }
+  50% {
+    transform: scale(1.025) translateX(0.6%);
+  }
+  100% {
+    transform: scale(1) translateX(0%);
+  }
+}
+
+/*
+ * react-datepicker ships without a width rule on its own wrapper, so the date
+ * input can render narrower than its sibling fields in a grid. Also keep the
+ * calendar popup from overflowing the viewport on the smallest phones.
+ */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker-popper {
+  max-width: calc(100vw - 2rem);
+}
+
+.react-datepicker {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
