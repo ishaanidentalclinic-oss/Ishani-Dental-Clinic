@@ -2,8 +2,8 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { parseDurationToMs } from "./utils";
 
-const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET!;
-const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET!;
+const ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || "fallback-dev-access-secret-ishaani-dental-2024";
+const REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "fallback-dev-refresh-secret-ishaani-dental-2024";
 const ACCESS_EXPIRES_IN = process.env.JWT_ACCESS_EXPIRES_IN || "15m";
 const REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || "1d";
 const REFRESH_EXPIRES_IN_LONG = process.env.JWT_REFRESH_EXPIRES_IN_LONG || "30d";
