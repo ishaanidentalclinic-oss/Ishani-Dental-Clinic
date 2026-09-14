@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
@@ -17,21 +17,26 @@ const ROLE_LABEL: Record<string, string> = {
   receptionist: "Receptionist",
 };
 
+const emptySubscribe = () => () => {};
+
 export function AdminTopbar() {
   const { admin, logout } = useAdminAuth();
   const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
-  // Close drawer on route navigation
-  useEffect(() => {
+  // Close drawer when route changes
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
     setMobileOpen(false);
-  }, [pathname]);
+  }
 
   // Lock the page underneath while drawer is open
   useEffect(() => {
