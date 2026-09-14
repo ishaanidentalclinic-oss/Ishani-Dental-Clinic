@@ -5,12 +5,14 @@ import { SITE } from "@/constants/site";
 interface LogoProps {
   className?: string;
   href?: string;
+  onClick?: () => void;
 }
 
-export function Logo({ className, href = "/" }: LogoProps) {
+export function Logo({ className, href = "/", onClick }: LogoProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn("flex items-center gap-2 font-serif text-xl font-semibold", className)}
       aria-label={`${SITE.name} — Home`}
     >

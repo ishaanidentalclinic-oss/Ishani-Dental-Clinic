@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   CalendarCheck,
   LayoutDashboard,
+  LogOut,
   MessageSquare,
   Newspaper,
   Settings,
@@ -12,14 +13,22 @@ import {
   Users,
   X,
 } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/cn";
 import { Logo } from "@/components/ui/Logo";
+import { InitialsAvatar } from "@/components/ui/InitialsAvatar";
 import { useAdminAuth, type AdminUser } from "@/context/AdminAuthContext";
 
 type AdminRole = AdminUser["role"];
 
 const ALL_ROLES: AdminRole[] = ["receptionist", "admin", "super_admin"];
 const CMS_ROLES: AdminRole[] = ["admin", "super_admin"];
+
+const ROLE_LABEL: Record<string, string> = {
+  super_admin: "Super Admin",
+  admin: "Admin",
+  receptionist: "Receptionist",
+};
 
 // Receptionists are scoped to the scheduling engine only (Dashboard,
 // Appointments, Patients) — never Blog/Treatments CMS, Enquiries, or
@@ -43,14 +52,22 @@ export function AdminSidebar({
   onClose?: () => void;
 }) {
   const pathname = usePathname();
-  const { admin } = useAdminAuth();
+  const router = useRouter();
+  const { admin, logout } = useAdminAuth();
   const visibleItems = NAV_ITEMS.filter((item) => !admin || item.roles.includes(admin.role));
+
+  const handleLogout = async () => {
+    onClose?.();
+    await logout();
+    toast.success("Logged out");
+    router.push("/admin/login");
+  };
 
   return (
     <div className="flex h-full flex-col bg-primary-950 text-white">
       <div className="flex items-start justify-between gap-3 border-b border-white/10 px-6 py-5">
         <div>
-          <Logo href="/admin/dashboard" className="text-white" />
+          <Logo href="/admin/dashboard" className="text-white" onClick={onNavigate} />
           <p className="mt-1 text-xs text-white/50">Admin Portal</p>
         </div>
         {onClose && (
@@ -65,7 +82,7 @@ export function AdminSidebar({
         )}
       </div>
 
-      <nav className="flex-1 space-y-1 px-3 py-5">
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-5">
         {visibleItems.map((item) => {
           const isActive = pathname?.startsWith(item.href);
           const Icon = item.icon;
@@ -103,6 +120,31 @@ export function AdminSidebar({
           );
         })}
       </nav>
+
+      {admin && (
+        <div className="border-t border-white/10 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <InitialsAvatar name={admin.name} />
+              <div className="min-w-0 text-sm">
+                <p className="truncate font-medium text-white">{admin.name}</p>
+                <p className="text-xs text-white/50">{ROLE_LABEL[admin.role] ?? admin.role}</p>
+              </div>
+            </div>
+            {onClose && (
+              <button
+                type="button"
+                onClick={handleLogout}
+                title="Log out"
+                aria-label="Log out"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white/60 hover:bg-white/10 hover:text-white transition-colors"
+              >
+                <LogOut size={16} />
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
